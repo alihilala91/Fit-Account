@@ -7,17 +7,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AccountTypeLookupService {
 
 
     private final AccountTypeLookupRepository accountTypeLookupRepository;
 
-    public AccountTypeLookupService(AccountTypeLookupRepository accountTypeLookupRepository) {
-        this.accountTypeLookupRepository = accountTypeLookupRepository;
-    }
 
     /**
      * Save Account Type Lookup into Database
+     *
      * @param accountTypeLookup AccountTypeLookup
      * @return AccountTypeLookup
      */

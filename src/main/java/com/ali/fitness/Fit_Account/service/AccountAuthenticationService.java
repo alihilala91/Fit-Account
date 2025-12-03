@@ -3,20 +3,15 @@ package com.ali.fitness.Fit_Account.service;
 
 import com.ali.fitness.Fit_Account.entity.AccountAuthentication;
 import com.ali.fitness.Fit_Account.repository.AccountAuthenticationRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AccountAuthenticationService {
 
+    private final AccountAuthenticationRepository accountAuthenticationRepository;
 
-    private  final AccountAuthenticationRepository accountAuthenticationRepository;
-
-    public AccountAuthenticationService(AccountAuthenticationRepository accountAuthenticationRepository) {
-        this.accountAuthenticationRepository = accountAuthenticationRepository;
-    }
 
     /**
      * Save Account Authentication to Database

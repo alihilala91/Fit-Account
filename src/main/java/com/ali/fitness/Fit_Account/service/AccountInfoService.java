@@ -7,15 +7,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-
+@RequiredArgsConstructor
 public class AccountInfoService {
 
 
     private final AccountInfoRepository accountInfoRepository;
-
-    public AccountInfoService(AccountInfoRepository accountInfoRepository) {
-        this.accountInfoRepository = accountInfoRepository;
-    }
 
     /**
      * Save Account Info in Database

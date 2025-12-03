@@ -1,31 +1,28 @@
 package com.ali.fitness.Fit_Account.service;
 
-
 import com.ali.fitness.Fit_Account.entity.lookup.IdentificationTypeLookup;
 import com.ali.fitness.Fit_Account.repository.IdentificationTypeLookupRepository;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service class for managing Identification Type Lookups.
+ */
 @Service
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 public class IdentificationTypeLookupService {
 
 
     private final IdentificationTypeLookupRepository identificationTypeLookupRepository;
 
-    public IdentificationTypeLookupService(IdentificationTypeLookupRepository identificationTypeLookupRepository) {
-        this.identificationTypeLookupRepository = identificationTypeLookupRepository;
-    }
-
     /**
-     * Save Identification Type Lookup into Database
+     * Save an IdentificationTypeLookup entity into the database.
      *
-     * @param identificationTypeLookup IdentificationTypeLookup
-     * @return IdentificationTypeLookup
+     * @param identificationTypeLookup the IdentificationTypeLookup entity to save
+     * @return the saved IdentificationTypeLookup entity
      */
     public IdentificationTypeLookup save(final IdentificationTypeLookup identificationTypeLookup) {
-
-        // Save Identification Type Lookup into Database
         return identificationTypeLookupRepository.save(identificationTypeLookup);
     }
 }

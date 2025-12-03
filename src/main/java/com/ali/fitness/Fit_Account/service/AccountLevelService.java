@@ -7,14 +7,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AccountLevelService {
 
 
     private final AccountLevelRepository accountLevelRepository;
 
-    public AccountLevelService(AccountLevelRepository accountLevelRepository) {
-        this.accountLevelRepository = accountLevelRepository;
-    }
 
     /**
      * Save Account Level into Database

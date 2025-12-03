@@ -7,14 +7,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AccountLevelTypeLookupService {
 
 
     private final AccountLevelTypeLookupRepository accountLevelTypeLookupRepository;
 
-    public AccountLevelTypeLookupService(AccountLevelTypeLookupRepository accountLevelTypeLookupRepository) {
-        this.accountLevelTypeLookupRepository = accountLevelTypeLookupRepository;
-    }
 
     /**
      * Save AccountLevelTypeLookup into Database
