@@ -67,7 +67,6 @@ public class AccountInfo {
     @Column(name = "identification_number", nullable = false, length = 15)
     private String identificationNumber;
 
-
     @CreationTimestamp
     @Column(name = "creation_Date", nullable = false)
     private LocalDateTime creationDate;
@@ -75,7 +74,6 @@ public class AccountInfo {
     @UpdateTimestamp
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
-
 
     @ManyToOne
     @JoinColumn(name = "identification_type_id", referencedColumnName = "id", nullable = false)
