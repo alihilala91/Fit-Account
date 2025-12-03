@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <!--    Sequence account_authentication_seq -->
+    <changeSet id="1764761502627-1" author="Ali Hilal">
+        <createSequence incrementBy="1" schemaName="account" sequenceName="account_authentication_seq" startValue="1"/>
+    </changeSet>
+
+    <changeSet id="1764761502627-2" author="Ali Hilal">
+        <createTable schemaName="account" tableName="account_authentication">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_account_authentication"/>
+            </column>
+            <column name="username" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_login" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="DATETIME">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_info_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="1764761502627-3" author="Ali Hilal">
+        <createIndex indexName="idx_username" schemaName="account" tableName="account_authentication">
+            <column name="username"/>
+        </createIndex>
+    </changeSet>
+
+    <changeSet id="1764761502627-4" author="Ali Hilal">
+        <addForeignKeyConstraint baseColumnNames="account_info_id" baseTableName="account_authentication"
+                                 baseTableSchemaName="account"
+                                 constraintName="FK_ACCOUNT_AUTHENTICATION_ON_ACCOUNT_INFO" referencedColumnNames="id"
+                                 referencedTableName="account_info" referencedTableSchemaName="account"/>
+    </changeSet>
+
+</databaseChangeLog>

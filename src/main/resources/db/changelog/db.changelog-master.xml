@@ -14,4 +14,5 @@
     <include file="db/changelog/2025/12/lookup/table/identification_type_lookup.xml"/>
     <include file="db/changelog/2025/12/main/table/account_info.xml"/>
     <include file="db/changelog/2025/12/main/table/account_level.xml"/>
+    <include file="db/changelog/2025/12/main/table/account_authentication.xml"/>
 </databaseChangeLog>

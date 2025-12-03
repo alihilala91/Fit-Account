@@ -29,15 +29,16 @@ import java.time.LocalDateTime;
 @Builder
 @Entity
 @Table(
-        name = "account_info",
+        name = "account_authentication",
         schema = "account",
-        indexes = {@Index(name = "idx_account_number", columnList = "account_number")}
+        indexes = {@Index(name = "idx_username", columnList = "username")}
 )
 public class AccountAuthentication {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_info_gen")
-    @SequenceGenerator(name = "account_info_gen", sequenceName = "account_info_seq", allocationSize = 1, schema = "account")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_authentication_gen")
+    @SequenceGenerator(name = "account_authentication_gen", sequenceName = "account_authentication_seq",
+            allocationSize = 1, schema = "account")
     private Long id;
 
     @Column(name = "username", nullable = false, length = 50)
