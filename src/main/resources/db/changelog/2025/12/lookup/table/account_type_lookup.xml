@@ -43,4 +43,14 @@
         </createIndex>
     </changeSet>
 
+    <!--    Adding new Column Called status-->
+    <changeSet id="1764855882243-1" author="Ali Hilal">
+        <addColumn tableName="account_type_lookup" schemaName="account">
+            <column name="status" type="varchar2(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
+
 </databaseChangeLog>

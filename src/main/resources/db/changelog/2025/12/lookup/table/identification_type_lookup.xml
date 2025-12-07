@@ -39,9 +39,20 @@
 
     <!--     Index idx_code-->
     <changeSet id="1764668870774-4" author="Ali Hilal">
-        <createIndex indexName="idx_identification_type_lookup_code" schemaName="account" tableName="identification_type_lookup">
+        <createIndex indexName="idx_identification_type_lookup_code" schemaName="account"
+                     tableName="identification_type_lookup">
             <column name="code"/>
         </createIndex>
     </changeSet>
+
+    <!--     Adding new Column called Status-->
+    <changeSet id="1764840521778-1" author="Ali Hilal">
+        <addColumn tableName="identification_type_lookup" schemaName="account">
+            <column name="status" type="varchar2(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+
 
 </databaseChangeLog>

@@ -46,8 +46,8 @@ public class AccountInfo {
     @SequenceGenerator(name = "account_info_gen", sequenceName = "account_info_seq", allocationSize = 1, schema = "account")
     private Long id;
 
-    @Column(name = "account_Number", nullable = false, unique = true, length = 15)
-    private Long accountNumber;
+    @Column(name = "account_Number", nullable = false, unique = true, length = 50)
+    private String accountNumber;
 
     @Column(name = "first_name", nullable = false, length = 20)
     private String firstName;

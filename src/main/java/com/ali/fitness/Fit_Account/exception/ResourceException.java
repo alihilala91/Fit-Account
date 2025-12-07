@@ -1,8 +1,6 @@
 package com.ali.fitness.Fit_Account.exception;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.http.HttpStatus;
 
@@ -11,7 +9,7 @@ import java.util.Locale;
 
 @Getter
 @Setter
-public class ResourceException extends Exception {
+public class ResourceException extends RuntimeException {
 
     private String message;
     private HttpStatus status;

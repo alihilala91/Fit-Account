@@ -4,5 +4,10 @@ import com.ali.fitness.Fit_Account.entity.lookup.IdentificationTypeLookup;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface IdentificationTypeLookupRepository extends JpaRepository<@NonNull IdentificationTypeLookup, @NonNull Long> {
+import java.util.Optional;
+
+public interface IdentificationTypeLookupRepository extends JpaRepository<@NonNull IdentificationTypeLookup,
+        @NonNull Long> {
+
+    Optional<IdentificationTypeLookup> findByCodeAndStatus(String code, String status);
 }

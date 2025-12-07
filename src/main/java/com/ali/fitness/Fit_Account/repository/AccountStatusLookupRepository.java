@@ -4,5 +4,9 @@ import com.ali.fitness.Fit_Account.entity.lookup.AccountStatusLookup;
 import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AccountStatusLookupRepository extends JpaRepository<@NonNull AccountStatusLookup,@NonNull Long> {
+import java.util.Optional;
+
+public interface AccountStatusLookupRepository extends JpaRepository<@NonNull AccountStatusLookup, @NonNull Long> {
+
+    Optional<AccountStatusLookup> findByCodeAndStatus(String code, String status);
 }

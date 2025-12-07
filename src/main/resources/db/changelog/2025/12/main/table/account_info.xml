@@ -17,7 +17,7 @@
             <column name="id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_account_info"/>
             </column>
-            <column name="account_number" type="BIGINT">
+            <column name="account_number" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
             <column name="first_name" type="VARCHAR(20)">
