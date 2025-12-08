@@ -8,4 +8,5 @@ public class ExceptionKey {
     public static final String ACCOUNT_STATUS_NOT_FOUND = "ACCOUNT_STATUS_NOT_FOUND";
     public static final String FAILED_FORMAT_MOBILE_NUMBER = "FAILED_FORMAT_MOBILE_NUMBER";
     public static final String ACCOUNT_ALREADY_EXISTS = "ACCOUNT_ALREADY_EXISTS";
+    public static final String ACCOUNT_NOT_EXISTS = "ACCOUNT_NOT_EXISTS";
 }

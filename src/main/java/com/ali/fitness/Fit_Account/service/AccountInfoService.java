@@ -2,9 +2,14 @@ package com.ali.fitness.Fit_Account.service;
 
 
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
+import com.ali.fitness.Fit_Account.exception.ExceptionKey;
+import com.ali.fitness.Fit_Account.exception.ResourceException;
 import com.ali.fitness.Fit_Account.repository.AccountInfoRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -43,5 +48,20 @@ public class AccountInfoService {
                         identificationType, accountType);
 
 
+    }
+
+    /**
+     * Fetch Account Details By Account Number
+     *
+     * @param accountNumber Account Number
+     * @param locale        Locale
+     * @return AccountInfo
+     */
+    public AccountInfo findByAccountNumber(final String accountNumber, final Locale locale) {
+
+        // Fetch Account Info by Account Number
+        return accountInfoRepository.findByAccountNumber(accountNumber)
+                .orElseThrow(() -> new ResourceException(ExceptionKey.ACCOUNT_NOT_EXISTS,
+                        HttpStatus.NOT_FOUND, locale));
     }
 }

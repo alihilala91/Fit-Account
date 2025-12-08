@@ -2,6 +2,7 @@ package com.ali.fitness.Fit_Account.service;
 
 import com.ali.fitness.Fit_Account.dto.account.create.request.AccountCreationRequest;
 import com.ali.fitness.Fit_Account.dto.account.create.response.AccountCreationResponse;
+import com.ali.fitness.Fit_Account.dto.account.fetch.FetchAccountResponse;
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountRoleLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountStatusLookup;
@@ -107,4 +108,15 @@ public class AccountService {
         }
     }
 
+    public FetchAccountResponse fetchAccountDetails(final String accountNumber, final HttpServletRequest request) {
+
+        // Find Locale
+        final Locale locale = Utils.getLocale(request);
+
+        // Fetch Account By Account Number
+        final AccountInfo accountInfo = accountInfoService.findByAccountNumber(accountNumber, locale);
+
+        // Mapping Response
+        return FetchAccountResponse.mapping(accountInfo);
+    }
 }
