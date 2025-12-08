@@ -9,9 +9,12 @@ import com.ali.fitness.Fit_Account.entity.lookup.AccountTypeLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.IdentificationTypeLookup;
 import com.ali.fitness.Fit_Account.enums.AccountInfoStatusEnums;
 import com.ali.fitness.Fit_Account.enums.GeneralAccountStatusEnums;
+import com.ali.fitness.Fit_Account.exception.ExceptionKey;
+import com.ali.fitness.Fit_Account.exception.ResourceException;
 import com.ali.fitness.Fit_Account.utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
@@ -44,9 +47,6 @@ public class AccountService {
         // Fetch Request Local
         final Locale locale = Utils.getLocale(servletRequest);
 
-        // Request Data Validation
-        validateCreationRequest(accountCreationRequest);
-
         // Find Identification Type
         final IdentificationTypeLookup identificationType = identificationTypeLookupService
                 .findByCode(accountCreationRequest.getIdentificationType(), locale);
@@ -63,11 +63,14 @@ public class AccountService {
                 .findByCodeAndStatus(GeneralAccountStatusEnums.CUSTOMER_ACTIVE.name(),
                         AccountInfoStatusEnums.ACTIVE.name(), locale);
 
+        // Request Data Validation
+        validateCreationRequest(accountCreationRequest, locale);
+
         // Create Account Number
         final String accountNumber = UUID.randomUUID().toString();  // ToDo need to generate the Account Number in Different way
 
         // Start Create Account with Status Active
-        AccountInfo accountInfo = accountInfoService.save(AccountInfo.builder()
+        final AccountInfo accountInfo = accountInfoService.save(AccountInfo.builder()
                 .accountNumber(accountNumber)
                 .firstName(accountCreationRequest.getFirstName().toUpperCase()) // Name will be saved in Upper Case
                 .middleName(accountCreationRequest.getMiddleName().toUpperCase()) // Name will be saved in Upper Case
@@ -82,12 +85,26 @@ public class AccountService {
                 .build());
 
         // Response Mapping
-
-        return null;
+        return AccountCreationResponse.mapping(accountInfo);
 
     }
 
-    private void validateCreationRequest(final AccountCreationRequest accountCreationRequest) {
+    /**
+     * Check the Required Validation Before Create Account :
+     * 1.Check if Account Exists
+     *
+     * @param accountCreationRequest AccountCreationRequest
+     * @param locale                 Locale
+     */
+    private void validateCreationRequest(final AccountCreationRequest accountCreationRequest,
+                                         final Locale locale) {
+
+        // Validate If Customer Exists
+        if (accountInfoService.accountExists(accountCreationRequest.getAccountType(),
+                accountCreationRequest.getIdentificationNumber(),
+                accountCreationRequest.getIdentificationType())) {
+            throw new ResourceException(ExceptionKey.ACCOUNT_ALREADY_EXISTS, HttpStatus.FOUND, locale);
+        }
     }
 
 }

@@ -6,4 +6,6 @@ import lombok.NonNull;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountInfoRepository extends JpaRepository<@NonNull AccountInfo, @NonNull Long> {
+
+    Boolean existsByIdentificationNumberAndIdentificationType_CodeAndAccountType_Code(String identificationNumber, String identificationType, String accountType);
 }
