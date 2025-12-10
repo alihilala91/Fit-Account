@@ -9,6 +9,7 @@ import com.ali.fitness.Fit_Account.repository.AccountInfoRepository;
 import com.ali.fitness.Fit_Account.repository.pojo.AllAccountPojo;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -103,5 +104,13 @@ public class AccountInfoService {
                 pageable);
 
 
+    }
+
+    /**
+     * Method Delete All Account
+     * Used Only for Test
+     */
+    public void deleteAll() {
+        accountInfoRepository.deleteAll();
     }
 }
