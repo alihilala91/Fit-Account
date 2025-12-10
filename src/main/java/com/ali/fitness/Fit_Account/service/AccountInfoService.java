@@ -4,6 +4,7 @@ package com.ali.fitness.Fit_Account.service;
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import com.ali.fitness.Fit_Account.exception.ExceptionKey;
 import com.ali.fitness.Fit_Account.exception.ResourceException;
+import com.ali.fitness.Fit_Account.filter.AccountInfoSpecs;
 import com.ali.fitness.Fit_Account.repository.AccountInfoRepository;
 import com.ali.fitness.Fit_Account.repository.pojo.AllAccountPojo;
 import lombok.NonNull;
@@ -81,18 +82,25 @@ public class AccountInfoService {
      * @param pageable             pageable
      * @return AllAccountPojo
      */
-    public Page<@NonNull AllAccountPojo> findAllAccount(final String accountNumber,
-                                                        final String firstName,
-                                                        final String middleName,
-                                                        final String lastName,
-                                                        final String mobile,
-                                                        final String identificationNumber,
-                                                        final Pageable pageable) {
+    public Page<@NonNull AccountInfo> findAllAccount(final String accountNumber,
+                                                     final String firstName,
+                                                     final String middleName,
+                                                     final String lastName,
+                                                     final String mobile,
+                                                     final String identificationNumber,
+                                                     final Pageable pageable) {
 
         // find All Account
         return accountInfoRepository.findAll(
-                accountNumber,firstName,middleName,lastName,
-                mobile,identificationNumber,pageable);
+                AccountInfoSpecs.filter(
+                        accountNumber,
+                        firstName,
+                        middleName,
+                        lastName,
+                        mobile,
+                        identificationNumber
+                ),
+                pageable);
 
 
     }

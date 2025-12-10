@@ -1,6 +1,6 @@
 package com.ali.fitness.Fit_Account.dto.account.fetch.all;
 
-import com.ali.fitness.Fit_Account.repository.pojo.AllAccountPojo;
+import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -11,7 +11,6 @@ import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.domain.Page;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,33 +29,32 @@ public class FetchAllAccountResponse {
     private Integer pageSize;
     private List<AccountDetails> accountDetails;
 
-    public static FetchAllAccountResponse mapping(Page<@NonNull AllAccountPojo> allAccountPojos) {
+    public static FetchAllAccountResponse mapping(Page<@NonNull AccountInfo> accountInfos) {
 
         List<AccountDetails> accountDetails = new ArrayList<>();
-        allAccountPojos.getContent().forEach(allAccountPojo -> {
+        accountInfos.getContent().forEach(accountInfo -> {
             accountDetails.add(AccountDetails.builder()
-                    .accountNumber(allAccountPojo.getAccountNumber())
-                    .firstName(allAccountPojo.getFirstName())
-                    .middleName(allAccountPojo.getMiddleName())
-                    .lastName(allAccountPojo.getLastName())
-                    .email(allAccountPojo.getEmail())
-                    .mobile(allAccountPojo.getMobile())
-                    .identificationNumber(allAccountPojo.getIdentificationNumber())
-                    .creationDate(allAccountPojo.getCreationDate())
-                    .identificationType(allAccountPojo.getIdentificationType())
-                    .accountType(allAccountPojo.getAccountType())
-                    .accountRole(allAccountPojo.getAccountRole())
-                    .status(allAccountPojo.getStatus())
+                    .accountNumber(accountInfo.getAccountNumber())
+                    .firstName(accountInfo.getFirstName())
+                    .middleName(accountInfo.getMiddleName())
+                    .lastName(accountInfo.getLastName())
+                    .email(accountInfo.getEmail())
+                    .mobile(accountInfo.getMobile())
+                    .identificationNumber(accountInfo.getIdentificationNumber())
+                    .creationDate(accountInfo.getCreationDate())
+                    .identificationType(accountInfo.getIdentificationType().getCode())
+                    .accountType(accountInfo.getAccountType().getCode())
+                    .accountRole(accountInfo.getAccountRole().getCode())
+                    .status(accountInfo.getStatus().getCode())
                     .build());
-
         });
 
         return FetchAllAccountResponse.builder()
                 .accountDetails(accountDetails)
-                .totalElements(allAccountPojos.getTotalElements())
-                .totalPages(allAccountPojos.getTotalPages())
-                .currentPage(allAccountPojos.getNumber())
-                .pageSize(allAccountPojos.getSize())
+                .totalElements(accountInfos.getTotalElements())
+                .totalPages(accountInfos.getTotalPages())
+                .currentPage(accountInfos.getNumber())
+                .pageSize(accountInfos.getSize())
                 .build();
 
     }

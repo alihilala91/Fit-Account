@@ -166,7 +166,7 @@ public class AccountService {
 
 
         // Fetch All Employee
-        final Page<@NonNull AllAccountPojo> allAccountPojos = accountInfoService.findAllAccount(
+        final Page<@NonNull AccountInfo> accountInfos = accountInfoService.findAllAccount(
                 accountNumber,
                 Utils.convertToUpper(firstName, locale),
                 Utils.convertToUpper(middleName, locale),
@@ -176,7 +176,7 @@ public class AccountService {
                 pageable);
 
         // Mapping Response
-        return FetchAllAccountResponse.mapping(allAccountPojos);
+        return FetchAllAccountResponse.mapping(accountInfos);
 
 
     }
