@@ -47,4 +47,24 @@ public class Utils {
             throw new ResourceException(ExceptionKey.FAILED_FORMAT_MOBILE_NUMBER, HttpStatus.NOT_FOUND, locale);
         }
     }
+
+    /**
+     * Convert String Value to UpperCase
+     *
+     * @param value  Value
+     * @param locale Locale
+     * @return String
+     */
+    public static String convertToUpper(final String value, final Locale locale) {
+
+        try {
+            if (value == null || value.isEmpty()) {
+                return value;
+            }
+            return value.toUpperCase(locale).trim();
+        } catch (final Exception e) {
+            return value;
+        }
+
+    }
 }

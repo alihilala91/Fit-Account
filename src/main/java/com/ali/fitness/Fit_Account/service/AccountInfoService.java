@@ -5,7 +5,11 @@ import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import com.ali.fitness.Fit_Account.exception.ExceptionKey;
 import com.ali.fitness.Fit_Account.exception.ResourceException;
 import com.ali.fitness.Fit_Account.repository.AccountInfoRepository;
+import com.ali.fitness.Fit_Account.repository.pojo.AllAccountPojo;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +67,33 @@ public class AccountInfoService {
         return accountInfoRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new ResourceException(ExceptionKey.ACCOUNT_NOT_EXISTS,
                         HttpStatus.NOT_FOUND, locale));
+    }
+
+    /**
+     * Find All Account
+     *
+     * @param accountNumber        accountNumber
+     * @param firstName            firstName
+     * @param middleName           middleName
+     * @param lastName             lastName
+     * @param mobile               mobile
+     * @param identificationNumber identificationNumber
+     * @param pageable             pageable
+     * @return AllAccountPojo
+     */
+    public Page<@NonNull AllAccountPojo> findAllAccount(final String accountNumber,
+                                                        final String firstName,
+                                                        final String middleName,
+                                                        final String lastName,
+                                                        final String mobile,
+                                                        final String identificationNumber,
+                                                        final Pageable pageable) {
+
+        // find All Account
+        return accountInfoRepository.findAll(
+                accountNumber,firstName,middleName,lastName,
+                mobile,identificationNumber,pageable);
+
+
     }
 }

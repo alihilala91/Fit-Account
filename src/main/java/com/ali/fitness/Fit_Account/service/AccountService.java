@@ -2,7 +2,8 @@ package com.ali.fitness.Fit_Account.service;
 
 import com.ali.fitness.Fit_Account.dto.account.create.request.AccountCreationRequest;
 import com.ali.fitness.Fit_Account.dto.account.create.response.AccountCreationResponse;
-import com.ali.fitness.Fit_Account.dto.account.fetch.FetchAccountResponse;
+import com.ali.fitness.Fit_Account.dto.account.fetch.all.FetchAllAccountResponse;
+import com.ali.fitness.Fit_Account.dto.account.fetch.single.FetchAccountResponse;
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountRoleLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountStatusLookup;
@@ -12,9 +13,15 @@ import com.ali.fitness.Fit_Account.enums.AccountInfoStatusEnums;
 import com.ali.fitness.Fit_Account.enums.GeneralAccountStatusEnums;
 import com.ali.fitness.Fit_Account.exception.ExceptionKey;
 import com.ali.fitness.Fit_Account.exception.ResourceException;
+import com.ali.fitness.Fit_Account.repository.pojo.AllAccountPojo;
 import com.ali.fitness.Fit_Account.utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -108,6 +115,13 @@ public class AccountService {
         }
     }
 
+    /**
+     * Fetch Account Details By Account Number
+     *
+     * @param accountNumber AccountNumber
+     * @param request       HttpServletRequest
+     * @return FetchAccountResponse
+     */
     public FetchAccountResponse fetchAccountDetails(final String accountNumber, final HttpServletRequest request) {
 
         // Find Locale
@@ -118,5 +132,52 @@ public class AccountService {
 
         // Mapping Response
         return FetchAccountResponse.mapping(accountInfo);
+    }
+
+
+    /**
+     * Fetch all Account
+     *
+     * @param accountNumber        accountNumber
+     * @param firstName            firstName
+     * @param middleName           middleName
+     * @param lastName             lastName
+     * @param mobile               mobile
+     * @param identificationNumber identificationNumber
+     * @param request              HttpServletRequest
+     * @return FetchAllAccountResponse
+     */
+    public FetchAllAccountResponse fetchAllAccountDetails(final String accountNumber,
+                                                          final String firstName,
+                                                          final String middleName,
+                                                          final String lastName,
+                                                          final String mobile,
+                                                          final String identificationNumber,
+                                                          final Integer pageNumber,
+                                                          final Integer pageSize,
+                                                          final HttpServletRequest request) {
+
+        // Find Locale
+        final Locale locale = Utils.getLocale(request);
+
+        // Create Pageable Config
+        final Pageable pageable = PageRequest.of(pageNumber, pageSize,
+                Sort.by(Sort.Direction.DESC, "update_date"));
+
+
+        // Fetch All Employee
+        final Page<@NonNull AllAccountPojo> allAccountPojos = accountInfoService.findAllAccount(
+                accountNumber,
+                Utils.convertToUpper(firstName, locale),
+                Utils.convertToUpper(middleName, locale),
+                Utils.convertToUpper(lastName, locale),
+                mobile,
+                identificationNumber,
+                pageable);
+
+        // Mapping Response
+        return FetchAllAccountResponse.mapping(allAccountPojos);
+
+
     }
 }

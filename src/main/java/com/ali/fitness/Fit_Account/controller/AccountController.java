@@ -1,8 +1,10 @@
 package com.ali.fitness.Fit_Account.controller;
 
+import com.ali.fitness.Fit_Account.constant.SystemConstant;
 import com.ali.fitness.Fit_Account.dto.account.create.request.AccountCreationRequest;
 import com.ali.fitness.Fit_Account.dto.account.create.response.AccountCreationResponse;
-import com.ali.fitness.Fit_Account.dto.account.fetch.FetchAccountResponse;
+import com.ali.fitness.Fit_Account.dto.account.fetch.all.FetchAllAccountResponse;
+import com.ali.fitness.Fit_Account.dto.account.fetch.single.FetchAccountResponse;
 import com.ali.fitness.Fit_Account.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -66,5 +69,48 @@ public class AccountController {
     }
 
 
-    // API for Fetch All Account
+    /**
+     * Fetch All Account
+     *
+     * @param accountNumber        accountNumber
+     * @param firstName            firstName
+     * @param middleName           middleName
+     * @param lastName             lastName
+     * @param mobile               mobile
+     * @param identificationNumber identificationNumber
+     * @param pageNumber           pageNumber Default 0
+     * @param pageSize             pageSize Default 10
+     * @param request              HttpServletRequest
+     * @return FetchAllAccountResponse
+     */
+    @GetMapping
+    public ResponseEntity<@NonNull FetchAllAccountResponse> fetchAllAccount(
+            @RequestParam(required = false, name = "accountNumber") final String accountNumber,
+            @RequestParam(required = false, name = "firstName") final String firstName,
+            @RequestParam(required = false, name = "middleName") final String middleName,
+            @RequestParam(required = false, name = "lastName") final String lastName,
+            @RequestParam(required = false, name = "mobile") final String mobile,
+            @RequestParam(required = false, name = "identificationNumber") final String identificationNumber,
+            @RequestParam(required = false, defaultValue = SystemConstant.PAGE_NUMBER) final Integer pageNumber,
+            @RequestParam(required = false, defaultValue = SystemConstant.PAGE_SIZE) final Integer pageSize,
+            final HttpServletRequest request) {
+
+        // Fetch All Account Details
+        final FetchAllAccountResponse response = accountService.fetchAllAccountDetails(
+                accountNumber,
+                firstName,
+                middleName,
+                lastName,
+                mobile,
+                identificationNumber,
+                pageNumber,
+                pageSize,
+                request);
+
+        // Return Response
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
+
+    }
+
+
 }

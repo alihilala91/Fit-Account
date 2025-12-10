@@ -1,4 +1,4 @@
-package com.ali.fitness.Fit_Account.dto.account.fetch;
+package com.ali.fitness.Fit_Account.dto.account.fetch.single;
 
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import lombok.AllArgsConstructor;
