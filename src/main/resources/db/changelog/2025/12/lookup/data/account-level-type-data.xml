@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+
+    <!--    Account Level Type -->
+    <changeSet id="1765701896345-1" author="Ali Hilal">
+        <validCheckSum>ANY</validCheckSum>
+
+        <!--     Account Level One    -->
+        <insert tableName="account_level_type_lookup" schemaName="account">
+            <column name="id" valueSequenceNext="account_level_type_lookup_seq"/>
+            <column name="code" value="LEVEL_ONE"/>
+            <column name="description" value="First Level of Account"/>
+            <column name="creation_date" valueDate="now()"/>
+            <column name="update_date" valueDate="now()"/>
+        </insert>
+
+        <!--     Account Level Two    -->
+        <insert tableName="account_level_type_lookup" schemaName="account">
+            <column name="id" valueSequenceNext="account_level_type_lookup_seq"/>
+            <column name="code" value="LEVEL_TWO"/>
+            <column name="description" value="Second Level of Account"/>
+            <column name="creation_date" valueDate="now()"/>
+            <column name="update_date" valueDate="now()"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-5.0.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+
+
+    <!--    Insert Active and Inactive  As Account Status Type-->
+    <changeSet id="1765701443752-1" author="Ali Hilal">
+        <validCheckSum>ANY</validCheckSum>
+
+        <!--     Active Status   -->
+        <insert tableName="account_status_lookup" schemaName="account">
+            <column name="id" valueSequenceNext="account_status_lookup_seq"/>
+            <column name="code" value="ACTIVE"/>
+            <column name="description" value="Account is Active "/>
+            <column name="status" value="ACTIVE"/>
+            <column name="creation_date" valueDate="now()"/>
+            <column name="update_date" valueDate="now()"/>
+        </insert>
+
+        <!--     Inactive Status   -->
+        <insert tableName="account_status_lookup" schemaName="account">
+            <column name="id" valueSequenceNext="account_status_lookup_seq"/>
+            <column name="code" value="INACTIVE"/>
+            <column name="description" value="Account is Inactive"/>
+            <column name="status" value="ACTIVE"/>
+            <column name="creation_date" valueDate="now()"/>
+            <column name="update_date" valueDate="now()"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

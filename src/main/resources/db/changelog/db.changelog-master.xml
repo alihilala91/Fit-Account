@@ -7,6 +7,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
 
+    <!--    Table Initialized -->
     <include file="db/changelog/2025/12/lookup/table/account_level_type_lookup.xml"/>
     <include file="db/changelog/2025/12/lookup/table/account_role_lookup.xml"/>
     <include file="db/changelog/2025/12/lookup/table/account_status_lookup.xml"/>
@@ -15,4 +16,11 @@
     <include file="db/changelog/2025/12/main/table/account_info.xml"/>
     <include file="db/changelog/2025/12/main/table/account_level.xml"/>
     <include file="db/changelog/2025/12/main/table/account_authentication.xml"/>
+
+    <!--    Data -->
+    <include file="db/changelog/2025/12/lookup/data/identification-type-Data.xml"/>
+    <include file="db/changelog/2025/12/lookup/data/account-Status-data.xml"/>
+    <include file="db/changelog/2025/12/lookup/data/account-level-type-data.xml"/>
+    <include file="db/changelog/2025/12/lookup/data/account_role_lookup_data.xml"/>
+    <include file="db/changelog/2025/12/lookup/data/account_type-data.xml"/>
 </databaseChangeLog>
