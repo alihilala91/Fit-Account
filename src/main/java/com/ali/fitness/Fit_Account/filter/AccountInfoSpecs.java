@@ -16,8 +16,7 @@ public class AccountInfoSpecs {
             String middleName,
             String lastName,
             String mobile,
-            String identificationNumber
-    ) {
+            String identificationNumber) {
         return (root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
 
@@ -25,13 +24,13 @@ public class AccountInfoSpecs {
                 predicates.add(cb.equal(root.get("accountNumber"), accountNumber));
             }
             if (firstName != null) {
-                predicates.add(cb.equal(root.get("firstName"), firstName));
+                predicates.add(cb.equal(root.get("firstName"), firstName.toUpperCase()));
             }
             if (middleName != null) {
-                predicates.add(cb.equal(root.get("middleName"), middleName));
+                predicates.add(cb.equal(root.get("middleName"), middleName.toUpperCase()));
             }
             if (lastName != null) {
-                predicates.add(cb.equal(root.get("lastName"), lastName));
+                predicates.add(cb.equal(root.get("lastName"), lastName.toUpperCase()));
             }
             if (mobile != null) {
                 predicates.add(cb.equal(root.get("mobile"), mobile));
