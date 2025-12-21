@@ -18,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -51,6 +52,20 @@ public class AccountLevelTypeLookup {
     @UpdateTimestamp
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
+
+    @Override
+    public boolean equals(final Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final AccountLevelTypeLookup that = (AccountLevelTypeLookup) o;
+        return Objects.equals(code, that.code);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, description);
+    }
 
 
 }

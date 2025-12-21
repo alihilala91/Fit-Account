@@ -18,6 +18,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -55,4 +56,18 @@ public class IdentificationTypeLookup {
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
 
+    @Override
+    public boolean equals(final Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final IdentificationTypeLookup that = (IdentificationTypeLookup) o;
+        return Objects.equals(code, that.code)
+                && Objects.equals(status, that.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code, status, description);
+    }
 }

@@ -25,6 +25,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -91,4 +92,29 @@ public class AccountInfo {
     @JoinColumn(name = "account_status_id", referencedColumnName = "id", nullable = false)
     private AccountStatusLookup status;
 
+    @Override
+    public boolean equals(final Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final AccountInfo that = (AccountInfo) o;
+        return Objects.equals(accountNumber, that.accountNumber)
+                && Objects.equals(firstName, that.firstName)
+                && Objects.equals(middleName, that.middleName)
+                && Objects.equals(lastName, that.lastName)
+                && Objects.equals(email, that.email)
+                && Objects.equals(mobile, that.mobile)
+                && Objects.equals(identificationNumber, that.identificationNumber)
+                && Objects.equals(identificationType, that.identificationType)
+                && Objects.equals(accountType, that.accountType)
+                && Objects.equals(accountRole, that.accountRole)
+                && Objects.equals(status, that.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountNumber, firstName, middleName, lastName,
+                email, mobile, identificationNumber, creationDate, updateDate,
+                identificationType, accountType, accountRole, status);
+    }
 }
