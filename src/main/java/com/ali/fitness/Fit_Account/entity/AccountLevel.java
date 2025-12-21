@@ -20,6 +20,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -59,4 +60,19 @@ public class AccountLevel {
     private AccountLevelTypeLookup accountLevelType;
 
 
+    @Override
+    public boolean equals(final Object o) {
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final AccountLevel that = (AccountLevel) o;
+        return Objects.equals(status, that.status)
+                && Objects.equals(accountInfo, that.accountInfo)
+                && Objects.equals(accountLevelType, that.accountLevelType);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(status, accountInfo, accountLevelType);
+    }
 }

@@ -3,29 +3,28 @@ package com.ali.fitness.Fit_Account.account.api.create;
 import com.ali.fitness.Fit_Account.account.api.dto.request.AccountRequestDTO;
 import com.ali.fitness.Fit_Account.FitAccountApplicationTests;
 import com.ali.fitness.Fit_Account.account.api.service.AccountInfoTestService;
+import com.ali.fitness.Fit_Account.account.api.service.AccountLevelTestService;
 import com.ali.fitness.Fit_Account.dto.account.create.request.AccountCreationRequest;
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
+import com.ali.fitness.Fit_Account.entity.AccountLevel;
+import com.ali.fitness.Fit_Account.entity.lookup.AccountLevelTypeLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountRoleLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountStatusLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountTypeLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.IdentificationTypeLookup;
 import com.ali.fitness.Fit_Account.enums.AccountInfoStatusEnums;
+import com.ali.fitness.Fit_Account.enums.AccountLevelEnums;
+import com.ali.fitness.Fit_Account.enums.AccountLevelStatusEnums;
 import com.ali.fitness.Fit_Account.enums.AccountRoleLookupStatusEnums;
 import com.ali.fitness.Fit_Account.enums.AccountTypeLookupStatusEnums;
 import com.ali.fitness.Fit_Account.enums.GeneralAccountStatusEnums;
 import com.ali.fitness.Fit_Account.enums.IdentificationTypeLookupStatusEnums;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.client.RestTestClient;
 
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -42,8 +41,11 @@ public class CreateAccountAPITest extends FitAccountApplicationTests {
     @Autowired
     private AccountInfoTestService accountInfoTestService;
 
+    @Autowired
+    private AccountLevelTestService accountLevelTestService;
+
     /**
-     * Test the Happy Case Senior For Create Employee
+     * Test the Happy Case Senior For Create Account
      * Result: Employee Created Successfully
      */
     @Test
@@ -100,12 +102,29 @@ public class CreateAccountAPITest extends FitAccountApplicationTests {
                         .code(GeneralAccountStatusEnums.CUSTOMER_ACTIVE.name())
                         .status(AccountInfoStatusEnums.ACTIVE.name())
                         .build())
-
                 .build();
 
 
-        // Assert the Result is True ( actualEmployee == exceptedEmployee)
+        // Find Account Level by Account Number and Level Code
+        AccountLevel actualAccountLevel = accountLevelTestService.findByAccountAndLevelCode(
+                actualAccountInfo.getAccountNumber(),
+                AccountLevelEnums.LEVEL_ONE.name());
+
+        AccountLevel exceptedAccountLevel = AccountLevel.builder()
+                .accountInfo(expectedAccountInfo)
+                .accountLevelType(AccountLevelTypeLookup.builder()
+                        .code(AccountLevelEnums.LEVEL_ONE.name())
+                        .build())
+                .status(AccountLevelStatusEnums.ACTIVE.name())
+                .build();
+
+
+        // Assert the Result is True ( actualAccount == exceptedAccount)
         assertThat(actualAccountInfo.equals(expectedAccountInfo))
+                .isTrue();
+
+        // Assert the Result is True ( actualAccount == exceptedAccountLevel)
+        assertThat(actualAccountLevel.equals(exceptedAccountLevel))
                 .isTrue();
 
     }

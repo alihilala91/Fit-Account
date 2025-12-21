@@ -5,15 +5,18 @@ import com.ali.fitness.Fit_Account.dto.account.create.response.AccountCreationRe
 import com.ali.fitness.Fit_Account.dto.account.fetch.all.FetchAllAccountResponse;
 import com.ali.fitness.Fit_Account.dto.account.fetch.single.FetchAccountResponse;
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
+import com.ali.fitness.Fit_Account.entity.AccountLevel;
+import com.ali.fitness.Fit_Account.entity.lookup.AccountLevelTypeLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountRoleLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountStatusLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountTypeLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.IdentificationTypeLookup;
 import com.ali.fitness.Fit_Account.enums.AccountInfoStatusEnums;
+import com.ali.fitness.Fit_Account.enums.AccountLevelEnums;
+import com.ali.fitness.Fit_Account.enums.AccountLevelStatusEnums;
 import com.ali.fitness.Fit_Account.enums.GeneralAccountStatusEnums;
 import com.ali.fitness.Fit_Account.exception.ExceptionKey;
 import com.ali.fitness.Fit_Account.exception.ResourceException;
-import com.ali.fitness.Fit_Account.repository.pojo.AllAccountPojo;
 import com.ali.fitness.Fit_Account.utils.Utils;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.NonNull;
@@ -41,6 +44,8 @@ public class AccountService {
     private final AccountRoleLookupService accountRoleLookupService;
     private final AccountInfoService accountInfoService;
     private final AccountStatusLookupService accountStatusLookupService;
+    private final AccountLevelService accountLevelService;
+    private final AccountLevelTypeLookupService accountLevelTypeLookupService;
 
     /**
      * Create Account
@@ -58,6 +63,10 @@ public class AccountService {
         // Find Identification Type
         final IdentificationTypeLookup identificationType = identificationTypeLookupService
                 .findByCode(accountCreationRequest.getIdentificationType(), locale);
+
+        // Find Default Account Level
+        final AccountLevelTypeLookup accountLevelTypeLookup = accountLevelTypeLookupService
+                .findByCode(AccountLevelEnums.LEVEL_ONE.name(), locale);
 
         // Find Account Type
         final AccountTypeLookup accountType = accountTypeLookupService
@@ -79,7 +88,7 @@ public class AccountService {
 
         // Start Create Account with Status Active
         final AccountInfo accountInfo = accountInfoService.save(AccountInfo.builder()
-                .accountNumber(accountNumber.substring(0,10))
+                .accountNumber(accountNumber.substring(0, 10))
                 .firstName(accountCreationRequest.getFirstName().toUpperCase()) // Name will be saved in Upper Case
                 .middleName(accountCreationRequest.getMiddleName().toUpperCase()) // Name will be saved in Upper Case
                 .lastName(accountCreationRequest.getLastName().toUpperCase()) // Name will be saved in Upper Case
@@ -90,6 +99,13 @@ public class AccountService {
                 .accountType(accountType)
                 .accountRole(accountRole)
                 .status(accountStatusLookup)
+                .build());
+
+        // Create Account Level With first Level
+        accountLevelService.save(AccountLevel.builder()
+                .accountLevelType(accountLevelTypeLookup)
+                .accountInfo(accountInfo)
+                .status(AccountLevelStatusEnums.ACTIVE.name())
                 .build());
 
         // Response Mapping
