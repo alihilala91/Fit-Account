@@ -15,7 +15,7 @@
             <column name="id" valueSequenceNext="account_type_lookup_seq"/>
             <column name="code" value="COACH"/>
             <column name="description" value="Coach Type"/>
-            <column name="status" value="ACTIV"/>
+            <column name="status" value="ACTIVE"/>
             <column name="creation_date" valueDate="now()"/>
             <column name="update_date" valueDate="now()"/>
         </insert>
@@ -25,7 +25,7 @@
             <column name="id" valueSequenceNext="account_type_lookup_seq"/>
             <column name="code" value="PLAYER"/>
             <column name="description" value="Player Type"/>
-            <column name="status" value="ACTIV"/>
+            <column name="status" value="ACTIVE"/>
             <column name="creation_date" valueDate="now()"/>
             <column name="update_date" valueDate="now()"/>
         </insert>

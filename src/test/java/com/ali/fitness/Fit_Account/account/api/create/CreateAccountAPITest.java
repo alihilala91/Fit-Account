@@ -3,25 +3,21 @@ package com.ali.fitness.Fit_Account.account.api.create;
 import com.ali.fitness.Fit_Account.account.api.dto.request.AccountRequestDTO;
 import com.ali.fitness.Fit_Account.FitAccountApplicationTests;
 import com.ali.fitness.Fit_Account.dto.account.create.request.AccountCreationRequest;
-import com.ali.fitness.Fit_Account.service.AccountInfoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.bean.override.mockito.MockitoBean;
-import org.springframework.test.web.reactive.server.WebTestClient;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.client.RestTestClient;
 
 
 public class CreateAccountAPITest extends FitAccountApplicationTests {
 
 
-//    @MockitoBean
-//    private AccountInfoService accountInfoService;
-
-//    @Autowired
-//    private WebTestClient webTestClient;
-
     @Autowired
     private ObjectMapper objectMapper;
+
+    @Autowired
+    private RestTestClient restClient;
 
 
     /**
@@ -32,9 +28,6 @@ public class CreateAccountAPITest extends FitAccountApplicationTests {
     public void testNormalFlow() throws Exception {
 
 
-        // Delete All Exists User
-//        accountInfoService.deleteAll();
-
         // Prepare Create Employee Request
         final AccountCreationRequest request = AccountRequestDTO.normalFlow();
 
@@ -42,12 +35,13 @@ public class CreateAccountAPITest extends FitAccountApplicationTests {
         final String requestDetails = objectMapper.writeValueAsString(request);
 
 
-//        webTestClient.post()
-//                .uri("/api/accounts")
-//                .bodyValue(requestDetails)
-//                .exchange()
-//                .expectStatus().isCreated()
-//                .expectHeader().contentType("application/json");
+        restClient.post()
+                .uri("/v1/api/account")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(requestDetails)
+                .exchange()
+                .expectStatus().isCreated()
+                .expectHeader().contentType(MediaType.APPLICATION_JSON);
 
 
 //        // Get the Actual Created Employee

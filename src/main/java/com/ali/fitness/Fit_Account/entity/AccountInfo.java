@@ -61,7 +61,7 @@ public class AccountInfo {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "mobile", nullable = false, length = 12)
+    @Column(name = "mobile", nullable = false, length = 15)
     private String mobile;
 
     @Column(name = "identification_number", nullable = false, length = 15)

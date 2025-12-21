@@ -79,7 +79,7 @@ public class AccountService {
 
         // Start Create Account with Status Active
         final AccountInfo accountInfo = accountInfoService.save(AccountInfo.builder()
-                .accountNumber(accountNumber)
+                .accountNumber(accountNumber.substring(0,10))
                 .firstName(accountCreationRequest.getFirstName().toUpperCase()) // Name will be saved in Upper Case
                 .middleName(accountCreationRequest.getMiddleName().toUpperCase()) // Name will be saved in Upper Case
                 .lastName(accountCreationRequest.getLastName().toUpperCase()) // Name will be saved in Upper Case

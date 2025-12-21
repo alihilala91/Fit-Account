@@ -52,7 +52,7 @@ public class AccountCreationRequest {
     private String identificationNumber;
 
     @NotNull(message = "AccountCreationRequest.identificationType.NotNull")
-    @Length(min = 2, max = 10, message = "AccountCreationRequest.identificationType.NotValidLength")
+    @Length(min = 2, max = 12, message = "AccountCreationRequest.identificationType.NotValidLength")
     @NotBlank(message = "AccountCreationRequest.identificationType.NotBlank")
     private String identificationType;
 

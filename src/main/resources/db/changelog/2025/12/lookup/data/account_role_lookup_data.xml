@@ -15,7 +15,7 @@
             <column name="id" valueSequenceNext="account_role_lookup_seq"/>
             <column name="code" value="ADMIN"/>
             <column name="description" value="admin Role"/>
-            <column name="status" value="ACTIV"/>
+            <column name="status" value="ACTIVE"/>
             <column name="creation_date" valueDate="now()"/>
             <column name="update_date" valueDate="now()"/>
         </insert>
@@ -25,7 +25,7 @@
             <column name="id" valueSequenceNext="account_role_lookup_seq"/>
             <column name="code" value="NORMAL"/>
             <column name="description" value="Normal Role"/>
-            <column name="status" value="ACTIV"/>
+            <column name="status" value="ACTIVE"/>
             <column name="creation_date" valueDate="now()"/>
             <column name="update_date" valueDate="now()"/>
         </insert>

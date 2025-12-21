@@ -30,7 +30,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="email" type="VARCHAR(255)"/>
-            <column name="mobile" type="VARCHAR(12)">
+            <column name="mobile" type="VARCHAR(15)">
                 <constraints nullable="false"/>
             </column>
             <column name="identification_number" type="VARCHAR(15)">

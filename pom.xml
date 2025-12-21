@@ -96,10 +96,25 @@
 			<scope>test</scope>
 		</dependency>
 
+		<!-- Changes to pom.xml with Spring Boot 4.0 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webflux</artifactId>
+			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
+
+		<!-- The required test dependencies are also modularized -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webmvc-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-restclient-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 
 	</dependencies>
 

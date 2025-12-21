@@ -14,7 +14,7 @@
         <!--     Active Status   -->
         <insert tableName="account_status_lookup" schemaName="account">
             <column name="id" valueSequenceNext="account_status_lookup_seq"/>
-            <column name="code" value="ACTIVE"/>
+            <column name="code" value="CUSTOMER_ACTIVE"/>
             <column name="description" value="Account is Active "/>
             <column name="status" value="ACTIVE"/>
             <column name="creation_date" valueDate="now()"/>
