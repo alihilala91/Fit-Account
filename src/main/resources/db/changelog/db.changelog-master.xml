@@ -23,4 +23,5 @@
     <include file="db/changelog/2025/12/lookup/data/account-level-type-data.xml"/>
     <include file="db/changelog/2025/12/lookup/data/account_role_lookup_data.xml"/>
     <include file="db/changelog/2025/12/lookup/data/account_type-data.xml"/>
+    <include file="db/changelog/2025/12/main/table/account_number_factory.xml"/>
 </databaseChangeLog>

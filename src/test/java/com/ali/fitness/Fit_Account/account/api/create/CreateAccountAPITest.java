@@ -52,7 +52,9 @@ public class CreateAccountAPITest extends FitAccountApplicationTests {
     public void testNormalFlow() throws Exception {
 
 
+
         // Delete All Saved Account Data
+        accountLevelTestService.deleteAll();
         accountInfoTestService.deleteAll();
 
         // Prepare Create Account Request

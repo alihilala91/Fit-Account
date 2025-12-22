@@ -1,6 +1,5 @@
 package com.ali.fitness.Fit_Account.account.api.service;
 
-import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import com.ali.fitness.Fit_Account.entity.AccountLevel;
 import com.ali.fitness.Fit_Account.enums.AccountLevelStatusEnums;
 import com.ali.fitness.Fit_Account.exception.ExceptionKey;
@@ -34,5 +33,13 @@ public class AccountLevelTestService {
                         HttpStatus.NOT_FOUND,
                         Locale.ENGLISH));
 
+    }
+
+    /**
+     * Delete All Record
+     */
+    public void deleteAll() {
+
+        accountLevelRepository.deleteAll();
     }
 }

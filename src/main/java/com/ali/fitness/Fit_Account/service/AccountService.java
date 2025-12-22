@@ -6,6 +6,7 @@ import com.ali.fitness.Fit_Account.dto.account.fetch.all.FetchAllAccountResponse
 import com.ali.fitness.Fit_Account.dto.account.fetch.single.FetchAccountResponse;
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import com.ali.fitness.Fit_Account.entity.AccountLevel;
+import com.ali.fitness.Fit_Account.entity.AccountNumberFactory;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountLevelTypeLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountRoleLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountStatusLookup;
@@ -46,6 +47,7 @@ public class AccountService {
     private final AccountStatusLookupService accountStatusLookupService;
     private final AccountLevelService accountLevelService;
     private final AccountLevelTypeLookupService accountLevelTypeLookupService;
+    private final AccountNumberFactoryService accountNumberFactoryService;
 
     /**
      * Create Account
@@ -83,8 +85,8 @@ public class AccountService {
         // Request Data Validation
         validateCreationRequest(accountCreationRequest, locale);
 
-        // Create Account Number
-        final String accountNumber = UUID.randomUUID().toString();  // ToDo need to generate the Account Number in Different way
+        // Create Account Number with Structure (YYYYMM0000001)
+        final String accountNumber = accountNumberFactoryService.createAccountNumber();
 
         // Start Create Account with Status Active
         final AccountInfo accountInfo = accountInfoService.save(AccountInfo.builder()
