@@ -62,6 +62,9 @@ public class AccountService {
         // Fetch Request Local
         final Locale locale = Utils.getLocale(servletRequest);
 
+        // Request Data Validation
+        validateCreationRequest(accountCreationRequest, locale);
+
         // Find Identification Type
         final IdentificationTypeLookup identificationType = identificationTypeLookupService
                 .findByCode(accountCreationRequest.getIdentificationType(), locale);
@@ -82,18 +85,15 @@ public class AccountService {
                 .findByCodeAndStatus(GeneralAccountStatusEnums.CUSTOMER_ACTIVE.name(),
                         AccountInfoStatusEnums.ACTIVE.name(), locale);
 
-        // Request Data Validation
-        validateCreationRequest(accountCreationRequest, locale);
-
         // Create Account Number with Structure (YYYYMM0000001)
         final String accountNumber = accountNumberFactoryService.createAccountNumber();
 
         // Start Create Account with Status Active
         final AccountInfo accountInfo = accountInfoService.save(AccountInfo.builder()
-                .accountNumber(accountNumber.substring(0, 10))
-                .firstName(accountCreationRequest.getFirstName().toUpperCase()) // Name will be saved in Upper Case
-                .middleName(accountCreationRequest.getMiddleName().toUpperCase()) // Name will be saved in Upper Case
-                .lastName(accountCreationRequest.getLastName().toUpperCase()) // Name will be saved in Upper Case
+                .accountNumber(accountNumber)
+                .firstName(accountCreationRequest.getFirstName().toUpperCase(locale)) // Name will be saved in Upper Case
+                .middleName(accountCreationRequest.getMiddleName().toUpperCase(locale)) // Name will be saved in Upper Case
+                .lastName(accountCreationRequest.getLastName().toUpperCase(locale)) // Name will be saved in Upper Case
                 .email(accountCreationRequest.getEmail())
                 .mobile(Utils.formatMobileNumber(accountCreationRequest.getMobile(), locale))
                 .identificationNumber(accountCreationRequest.getIdentificationNumber())
