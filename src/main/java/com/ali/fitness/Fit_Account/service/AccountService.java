@@ -6,7 +6,6 @@ import com.ali.fitness.Fit_Account.dto.account.fetch.all.FetchAllAccountResponse
 import com.ali.fitness.Fit_Account.dto.account.fetch.single.FetchAccountResponse;
 import com.ali.fitness.Fit_Account.entity.AccountInfo;
 import com.ali.fitness.Fit_Account.entity.AccountLevel;
-import com.ali.fitness.Fit_Account.entity.AccountNumberFactory;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountLevelTypeLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountRoleLookup;
 import com.ali.fitness.Fit_Account.entity.lookup.AccountStatusLookup;
@@ -30,7 +29,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.Locale;
-import java.util.UUID;
 
 /**
  * Service to Manage All The Account Service API
@@ -81,6 +79,7 @@ public class AccountService {
         final AccountRoleLookup accountRole = accountRoleLookupService
                 .findByCode(accountCreationRequest.getAccountRole(), locale);
 
+        // Find Account
         final AccountStatusLookup accountStatusLookup = accountStatusLookupService
                 .findByCodeAndStatus(GeneralAccountStatusEnums.CUSTOMER_ACTIVE.name(),
                         AccountInfoStatusEnums.ACTIVE.name(), locale);
